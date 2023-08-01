@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Tabs } from '@mantine/core';
 import All from './All';
 import { IconPhoto, IconFolders} from '@tabler/icons-react';
+import Folders from './Folders';
 
 export default function App() {
     
@@ -15,11 +16,11 @@ export default function App() {
             </Tabs.List>
 
             <Tabs.Panel value="all" pt="xs">
-                <All />                
+                <All />           
             </Tabs.Panel>
 
             <Tabs.Panel value="folders" pt="xs">
-                
+                <Folders />
             </Tabs.Panel>
         </Tabs>
     )
