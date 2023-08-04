@@ -9,13 +9,22 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 window.baseApiUrl = 'http://192.168.8.166/home/photos/';
 window.baseThumbUrl = 'http://192.168.8.166/home/photos/thumb/';
 
+// window.baseApiUrl = 'https://skrazzo.xyz/home/photos/';
+// window.baseThumbUrl = 'https://skrazzo.xyz/home/photos/thumb/';
+
 // settings for pagination
-window.imagesPerPage = 45;
-window.paginationSiblings = 1;
+window.imagesPerPage = 54;
+window.imagesPerPagePhone = 24;
+window.paginationSiblings = 2; // pages in the middle
+window.paginationBoundaries = 1; // pages from both sides
+
+// all picture settings
+window.imagesPerRowPhone = 4; // how many images to show per row on phone
+window.imageSize = 100; // image size when viewed normaly
 
 root.render(
     <MantineProvider
-        theme={{ colorScheme: 'light' }}
+        theme={{ colorScheme: 'light', primaryColor: 'green' }}
     >
         <Notifications />
         <App />

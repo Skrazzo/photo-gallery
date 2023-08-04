@@ -1,0 +1,32 @@
+.overlay{
+    position: absolute;
+
+    display: grid;
+    place-items: center;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(1px);
+    z-index: 10000;
+}
+
+.image-modal-container{
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    /* play with min and max values */
+    max-width: 400px;
+    max-height: 600px;
+
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
+
+    overflow: hidden;
+
+}
