@@ -5,6 +5,7 @@ import { IconChevronDown, IconChevronLeft, IconFolders, IconHome } from '@tabler
 import { calculate_phone_image_size, check_folder_exists, check_if_thumb_exists, get_current_folder_files, get_images_from_array } from '../functions';
 import Folder from './Small/Folder';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import ImageModal from './Small/ImageModal';
 
 export default function Folders() {
 
@@ -17,7 +18,7 @@ export default function Folders() {
     const [phoneImageSize, setPhoneImageSize] = useState(100);
     const phoneSize = useMediaQuery('(max-width: 450px)');
     const [breadcrumbsPath, setbreadcrumbsPath] = useState([]);
-    
+    const [imageModal, setImageModal] = useState({open: false, link: ''});
 
     useEffect(() => {
         axios.get(window.baseApiUrl + 'get_files.php').then((res) => {
@@ -80,8 +81,20 @@ export default function Folders() {
         setPath(get_path(path, index));
     }
 
+    function viewClickHandler(link){
+        setImageModal({link: link, open: true});
+    }
+
+    function closeViewHandler(){
+        setImageModal({...imageModal, open: false});
+    }
+
     return (
         <Container p={0}>
+            {(imageModal.link !== '')? 
+                <ImageModal close={closeViewHandler} open={imageModal.open} link={imageModal.link}/> : <></>
+            }
+
             <Flex gap={5}>
                 <ThemeIcon variant={'light'}>
                     <IconHome onClick={() => {setPath('/')}}/>
@@ -123,7 +136,7 @@ export default function Folders() {
 
                 
 
-
+            
                     
             <Flex gap={5} wrap={'wrap'} mt={'sm'} justify={'center'}>
                 {images.map((x, i) => {
@@ -131,7 +144,7 @@ export default function Folders() {
                     if(i < (((!phoneSize) ? window.imagesPerPage : window.imagesPerPagePhone) * page) && i >= (((!phoneSize) ? window.imagesPerPage : window.imagesPerPagePhone) * (page - 1))){ // check if image is valid for pagination
                         const picturePathThumb = path + x;
                         if(check_if_thumb_exists(files, picturePathThumb)){
-                            return <Image onClick={() => console.log(picturePathThumb)} key={i} width={(phoneSize) ? phoneImageSize : window.imageSize} radius={'sm'}  src={window.baseThumbUrl + picturePathThumb}/>;
+                            return <Image onClick={() => viewClickHandler(picturePathThumb)} key={i} width={(phoneSize) ? phoneImageSize : window.imageSize} radius={'sm'}  src={window.baseThumbUrl + picturePathThumb}/>;
                         }
                     }
                     

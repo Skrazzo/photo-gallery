@@ -13,6 +13,8 @@ export default function All() {
     const phoneSize = useMediaQuery('(max-width: 450px)');
     const [page, setPage] = useState(1);
 
+    const [imageModal, setImageModal] = useState({open: false, link: ''});
+
 
     function check_changes(){
         axios.get(window.baseApiUrl + 'detect_changes.php').then((x) => {
@@ -49,7 +51,13 @@ export default function All() {
         });
     }
 
-    
+    function viewClickHandler(link){
+        setImageModal({link: window.baseApiUrl + 'view_image.php?path=' + link, open: true});
+    }
+
+    function closeViewHandler(){
+        setImageModal({...imageModal, open: false});
+    }
 
     useEffect(() => {
         refresh_thumbnails();
@@ -64,12 +72,14 @@ export default function All() {
     return (
         <>
             <Container p={0}>
-                <ImageModal link={'http://192.168.8.166/home/files/myfiles/skrazzo/Pictures/IMG_20230331_133751.jpg'}/>
+                {(imageModal.link !== '')? 
+                    <ImageModal close={closeViewHandler} open={imageModal.open} link={imageModal.link}/> : <></>
+                }
                 
                 <Flex gap={5} wrap={'wrap'} justify={'center'}>
                     {thumbnails.map((x, i) => {
                         if(i < (((!phoneSize) ? window.imagesPerPage : window.imagesPerPagePhone) * page) && i >= (((!phoneSize) ? window.imagesPerPage : window.imagesPerPagePhone) * (page - 1))){ // check if image is valid for pagination
-                            return <Image  width={(phoneSize) ? phoneImageSize : window.imageSize} radius={'sm'}  src={window.baseThumbUrl + x.path}/>;
+                            return <Image onClick={() => viewClickHandler(x.path)}  width={(phoneSize) ? phoneImageSize : window.imageSize} radius={'sm'}  src={window.baseThumbUrl + x.path}/>;
                         }
                     })}
                 </Flex>

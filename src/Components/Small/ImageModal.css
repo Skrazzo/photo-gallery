@@ -1,5 +1,5 @@
 .overlay{
-    position: absolute;
+    position: fixed;
 
     display: grid;
     place-items: center;
@@ -8,25 +8,72 @@
     left: 0;
 
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
 
-    background-color: rgba(0, 0, 0, 0.1);
+    
     backdrop-filter: blur(1px);
     z-index: 10000;
+    transition: 500ms;
 }
 
 .image-modal-container{
-    background-color: white;
+    
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
 
-    /* play with min and max values */
-    max-width: 400px;
-    max-height: 600px;
-
-    width: calc(100% - 5px);
-    height: calc(100% - 5px);
-
     overflow: hidden;
+    transition: 500ms;
+}
 
+.image-modal-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: calc(100vw - 10px);
+    height: calc(100dvh - 100px);
+}
+
+
+/* if screen is bigger than 500px */
+@media (min-width: 500px){
+    .image-modal-center{
+        max-width: 500px;
+        max-height: 600px;
+    }
+}
+
+/* if screen is bigger than 1500px */
+@media (min-width: 1500px){
+    .image-modal-center{
+        max-width: 1000px;
+        max-height: 700px;
+    }
+}
+
+
+/* ------------------- image -------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+
+.text-font{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+}
+
+.modal-image{
+    max-width: 100%;
+    max-height: 90%;
+
+    border-radius: 3px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.4);
+    
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
 }

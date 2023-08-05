@@ -9,8 +9,19 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 window.baseApiUrl = 'http://192.168.8.166/home/photos/';
 window.baseThumbUrl = 'http://192.168.8.166/home/photos/thumb/';
 
-// window.baseApiUrl = 'https://skrazzo.xyz/home/photos/';
-// window.baseThumbUrl = 'https://skrazzo.xyz/home/photos/thumb/';
+
+
+//domain_detect();
+
+function domain_detect(){
+    const currentDomain = window.location.hostname;
+    const protocol = window.location.protocol;
+
+
+    window.baseApiUrl   = protocol + '//'+ currentDomain +'/home/photos/'; 
+    window.baseThumbUrl = protocol + '//'+ currentDomain +'/home/photos/thumb/';
+}
+
 
 // settings for pagination
 window.imagesPerPage = 54;
