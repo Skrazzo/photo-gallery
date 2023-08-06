@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Center, Collapse, Flex, Image, Pagination, Paper, Text, Container, Breadcrumbs, Button, ThemeIcon, ScrollArea } from '@mantine/core';
 import { IconChevronDown, IconChevronLeft, IconFolders, IconHome } from '@tabler/icons-react';
-import { calculate_phone_image_size, check_folder_exists, check_if_thumb_exists, get_current_folder_files, get_images_from_array } from '../functions';
+import { calculate_phone_image_size, check_folder_exists, check_if_thumb_exists, getFileNameFromPath, get_current_folder_files, get_images_from_array } from '../functions';
 import Folder from './Small/Folder';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import ImageModal from './Small/ImageModal';
@@ -29,7 +29,7 @@ export default function Folders() {
         });
     }, []);
 
-    
+        
 
     // whenever path changes we need to update current folder files
     useEffect(() => {
@@ -89,10 +89,26 @@ export default function Folders() {
         setImageModal({...imageModal, open: false});
     }
 
+    function viewNextImage(){
+        const i = images.indexOf(getFileNameFromPath( imageModal.link));
+
+        if(i !== images.length - 1){
+            setImageModal({...imageModal, link: path + images[i + 1]});
+        }
+    }   
+
+    function viewBeforeImage(){
+        const i = images.indexOf(getFileNameFromPath( imageModal.link));
+
+        if(i !== 0){
+            setImageModal({...imageModal, link: path + images[i - 1]});
+        }
+    }
+
     return (
         <Container p={0}>
             {(imageModal.link !== '')? 
-                <ImageModal close={closeViewHandler} open={imageModal.open} link={imageModal.link}/> : <></>
+                <ImageModal next={viewNextImage} before={viewBeforeImage} close={closeViewHandler} open={imageModal.open} link={imageModal.link}/> : <></>
             }
 
             <Flex gap={5}>

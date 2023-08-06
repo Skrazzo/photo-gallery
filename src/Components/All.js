@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Center, Container, Flex, Image, Pagination } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { calculate_phone_image_size } from '../functions';
+import { calculate_phone_image_size, getFileNameFromPath } from '../functions';
 import { useMediaQuery } from '@mantine/hooks';
 import ImageModal from './Small/ImageModal';
 
@@ -52,11 +52,45 @@ export default function All() {
     }
 
     function viewClickHandler(link){
-        setImageModal({link: window.baseApiUrl + 'view_image.php?path=' + link, open: true});
+        setImageModal({link: link, open: true});
     }
 
     function closeViewHandler(){
         setImageModal({...imageModal, open: false});
+    }
+
+    function viewNextImage(){
+        var index = -1;
+        
+        for(var i = 0; i < thumbnails.length; i++){
+            if(thumbnails[i].path === imageModal.link){
+                index = i;
+                break;
+            }
+        }
+        
+        if(index !== -1){
+            if(index !== thumbnails.length - 1){
+                setImageModal({...imageModal, link: thumbnails[i + 1].path});
+            }
+        }
+    }   
+
+    function viewBeforeImage(){
+        var index = -1;
+        
+        for(var i = 0; i < thumbnails.length; i++){
+            if(thumbnails[i].path === imageModal.link){
+                index = i;
+                break;
+            }
+        }
+        
+        if(index !== -1){
+            if(index !== 0){
+                setImageModal({...imageModal, link: thumbnails[i - 1].path});
+            }
+        }
     }
 
     useEffect(() => {
@@ -73,7 +107,7 @@ export default function All() {
         <>
             <Container p={0}>
                 {(imageModal.link !== '')? 
-                    <ImageModal close={closeViewHandler} open={imageModal.open} link={imageModal.link}/> : <></>
+                    <ImageModal before={viewBeforeImage} next={viewNextImage} close={closeViewHandler} open={imageModal.open} link={imageModal.link}/> : <></>
                 }
                 
                 <Flex gap={5} wrap={'wrap'} justify={'center'}>

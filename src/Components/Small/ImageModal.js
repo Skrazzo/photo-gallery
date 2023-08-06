@@ -1,5 +1,5 @@
 import { Button, CloseButton, ThemeIcon } from '@mantine/core';
-import { IconBadgeHd, IconDownload } from '@tabler/icons-react';
+import { IconArrowNarrowLeft, IconArrowNarrowRight, IconBadgeHd, IconDownload, IconRotateClockwise } from '@tabler/icons-react';
 import React, { useEffect, useState } from 'react';
 import './ImageModal.css';
 import ColorThief from 'colorthief';
@@ -10,10 +10,12 @@ export default function ImageModal(props) {
     const [bgColorA, setBgColorA] = useState('rgba(0,0,0,0.3)'); // Initial background color
     const [rgbColor, setRgbColor] = useState([0, 0, 0]);
     const [hdPicture, setHdPicture] = useState(false);
+    const [imageAngle, setimageAngle] = useState(0);
 
     useEffect(() => {
         const img = document.querySelector('.modal-image');
         const colorThief = new ColorThief();
+        setimageAngle(0);
         
         img.addEventListener('load', function() {
             const tmp = colorThief.getColor(img);
@@ -86,6 +88,10 @@ export default function ImageModal(props) {
         setHdPicture(!hdPicture);
     }
 
+    function rotate(){
+        setimageAngle(imageAngle + 90);
+    }
+
     if(props.open === true){
         return (
             <div className='overlay' style={{backgroundColor: bgColorA}}>
@@ -99,7 +105,13 @@ export default function ImageModal(props) {
                     </div>
                     
                     <div className='image-modal-center'>
-                        <img className='modal-image' src={(hdPicture) ? window.baseApiUrl + 'view_image_hd.php?path=' + props.link : window.baseApiUrl + 'view_image.php?path=' + props.link} alt={'Image is loadin...'} crossOrigin="anonymous"/>
+                        <img style={{rotate: imageAngle + 'deg'}} className={'modal-image'} src={(hdPicture) ? window.baseApiUrl + 'view_image_hd.php?path=' + props.link : window.baseApiUrl + 'view_image.php?path=' + props.link} alt={'Image is loadin...'} crossOrigin="anonymous"/>
+                    </div>
+
+                    <div className='image-modal-controls'>
+                        <IconArrowNarrowLeft style={{zIndex: 90000}} onClick={props.before} color={(isColorBright(rgbColor)) ? 'black' : 'white'}/>
+                        <IconRotateClockwise style={{zIndex: 90000}} onClick={rotate} color={(isColorBright(rgbColor)) ? 'black' : 'white'}/>
+                        <IconArrowNarrowRight style={{zIndex: 90000}} onClick={props.next} color={(isColorBright(rgbColor)) ? 'black' : 'white'}/>
                     </div>
                     
                 </div>

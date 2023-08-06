@@ -89,9 +89,10 @@ export function check_if_thumb_exists(files, path){
         }
     });
 
-    //console.log(currentFiles);
-    //console.log('folder |' + parts[0] + '| exists?', check_folder_exists(currentFiles, parts[0]));
-    //console.log(path, exists);
     return exists;
-    //console.log('check',path);
+}
+
+export function getFileNameFromPath(filePath) {
+    // Use the built-in JavaScript method to extract the file name
+    return filePath.split('/').pop();
 }
