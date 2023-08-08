@@ -11,13 +11,16 @@ export default function ImageModal(props) {
     const [rgbColor, setRgbColor] = useState([0, 0, 0]);
     const [hdPicture, setHdPicture] = useState(false);
     const [imageAngle, setimageAngle] = useState(0);
+    const [imageLoading, setImageLoading] = useState(true);
 
     useEffect(() => {
         const img = document.querySelector('.modal-image');
         const colorThief = new ColorThief();
         setimageAngle(0);
+        setImageLoading(true);
         
         img.addEventListener('load', function() {
+            setImageLoading(false);
             const tmp = colorThief.getColor(img);
 
             setRgbColor((isColorBright(tmp)) ? darkenColor(tmp, 0.4) : darkenColor(tmp, 0.1));
@@ -92,6 +95,8 @@ export default function ImageModal(props) {
         setimageAngle(imageAngle + 90);
     }
 
+    
+
     if(props.open === true){
         return (
             <div className='overlay' style={{backgroundColor: bgColorA}}>
@@ -109,9 +114,14 @@ export default function ImageModal(props) {
                     </div>
 
                     <div className='image-modal-controls'>
-                        <IconArrowNarrowLeft style={{zIndex: 90000}} onClick={props.before} color={(isColorBright(rgbColor)) ? 'black' : 'white'}/>
-                        <IconRotateClockwise style={{zIndex: 90000}} onClick={rotate} color={(isColorBright(rgbColor)) ? 'black' : 'white'}/>
-                        <IconArrowNarrowRight style={{zIndex: 90000}} onClick={props.next} color={(isColorBright(rgbColor)) ? 'black' : 'white'}/>
+                        {(!imageLoading) ? 
+                            <>
+                                <IconArrowNarrowLeft style={{zIndex: 90000}} onClick={props.before} color={(isColorBright(rgbColor)) ? 'black' : 'white'}/>
+                                <IconRotateClockwise style={{zIndex: 90000}} onClick={rotate} color={(isColorBright(rgbColor)) ? 'black' : 'white'}/>
+                                <IconArrowNarrowRight style={{zIndex: 90000}} onClick={props.next} color={(isColorBright(rgbColor)) ? 'black' : 'white'}/>
+                            </>
+                            : <></>
+                        }
                     </div>
                     
                 </div>

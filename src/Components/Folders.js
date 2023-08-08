@@ -154,7 +154,7 @@ export default function Folders() {
 
             
                     
-            <Flex gap={5} wrap={'wrap'} mt={'sm'} justify={'center'}>
+            <Flex gap={5} wrap={'wrap'} mt={'sm'} justify={'center'} className='folders-image-container'>
                 {images.map((x, i) => {
 
                     if(i < (((!phoneSize) ? window.imagesPerPage : window.imagesPerPagePhone) * page) && i >= (((!phoneSize) ? window.imagesPerPage : window.imagesPerPagePhone) * (page - 1))){ // check if image is valid for pagination

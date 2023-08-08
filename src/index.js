@@ -6,8 +6,8 @@ import App from './Components/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-window.baseApiUrl = 'http://192.168.8.166/home/photos/';
-window.baseThumbUrl = 'http://192.168.8.166/home/photos/thumb/';
+window.baseApiUrl = 'https://skrazzo.xyz/home/photos/';
+window.baseThumbUrl = 'https://skrazzo.xyz/home/photos/thumb/';
 
 
 

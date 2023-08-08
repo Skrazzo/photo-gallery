@@ -9,3 +9,16 @@
     scale: 105%;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
 }
+
+.folders-image-container{
+    padding: 0;
+}
+
+@media (min-width: 450px){
+    .folders-image-container{
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 5px;
+        padding: 10px 0px;    
+    }
+}
