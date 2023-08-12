@@ -11,7 +11,7 @@ window.baseThumbUrl = 'https://skrazzo.xyz/home/photos/thumb/';
 
 
 
-//domain_detect();
+domain_detect();
 
 function domain_detect(){
     const currentDomain = window.location.hostname;
