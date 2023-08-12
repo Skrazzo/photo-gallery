@@ -103,7 +103,7 @@ export default function ImageModal(props) {
                 
                 <div className='image-modal-container' style={{ background: 'linear-gradient(to bottom, '+ bgColorL +', '+ bgColor +')'}}>
                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px'}} >
-                        <div className='flex-center text-font' style={{
+                        <div className='flex-center text-font-bold' style={{
                             color: (isColorBright(rgbColor)) ? 'black' : 'white'
                         }}>{getFileNameFromPath(props.link)} <ThemeIcon onClick={toggleHDHandler} variant={(hdPicture) ? 'filled' : 'outline'}><IconBadgeHd size={20} /></ThemeIcon> </div>
                         <CloseButton onClick={props.close} size={'md'} title="Close image view"  />

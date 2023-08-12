@@ -6,22 +6,19 @@ import App from './Components/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-window.baseApiUrl = 'https://skrazzo.xyz/home/photos/';
-window.baseThumbUrl = 'https://skrazzo.xyz/home/photos/thumb/';
-
-
-
 domain_detect();
 
 function domain_detect(){
     const currentDomain = window.location.hostname;
     const protocol = window.location.protocol;
 
+    
 
     window.baseApiUrl   = protocol + '//'+ currentDomain +'/home/photos/'; 
     window.baseThumbUrl = protocol + '//'+ currentDomain +'/home/photos/thumb/';
 }
 
+window.version = 'v1.0';
 
 // settings for pagination
 window.imagesPerPage = 54;

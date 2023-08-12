@@ -15,9 +15,11 @@ export default function All() {
 
     const [imageModal, setImageModal] = useState({open: false, link: ''});
 
+    axios.defaults.baseURL = window.baseApiUrl;
+    axios.defaults.withCredentials = true;
 
     function check_changes(){
-        axios.get(window.baseApiUrl + 'detect_changes.php').then((x) => {
+        axios.get('detect_changes.php').then((x) => {
             if(x.status === 200){
                 if(x.data === true){
                     notifications.show({
@@ -26,7 +28,7 @@ export default function All() {
                         message: 'We detected few changes, we are updating thumbnails, please wait a bit',
                     })
 
-                    axios.get(window.baseApiUrl + 'run_thumb.php').then((res) => {
+                    axios.get('run_thumb.php').then((res) => {
                         if(res.status === 200){
                             console.log('PHP response:', res.data);
                             notifications.show({
@@ -39,6 +41,8 @@ export default function All() {
                         }else{
                             console.error('PHP error:', res);
                         }
+                    }).catch(err => {
+
                     });
                 }
             }
@@ -46,8 +50,10 @@ export default function All() {
     }
 
     function refresh_thumbnails(){
-        axios.get(window.baseApiUrl + 'get_all_files.php').then((x) => {
+        axios.get('get_all_files.php').then((x) => {
             setThumbnails(x.data);
+        }).catch(err => {
+                        
         });
     }
 

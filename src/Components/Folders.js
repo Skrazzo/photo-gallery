@@ -23,9 +23,10 @@ export default function Folders() {
     useEffect(() => {
         axios.get(window.baseApiUrl + 'get_files.php').then((res) => {
             if(res.status === 200){
-                console.log(res.data);
                 setFiles(res.data);
             }
+
+            console.log(res.status);
         });
     }, []);
 
