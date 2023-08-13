@@ -21,7 +21,11 @@ export default function App() {
                         setShowLogin(true);
                     }else if(res.data.logged_in === true){
                         setShowLogin(false);
+                    }else if(res.data.login_req === false){
+                        setShowLogin(false);
                     }
+
+
 
                 }else{
                     console.error(res.data);

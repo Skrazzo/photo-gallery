@@ -3,6 +3,8 @@ import { IconArrowNarrowLeft, IconArrowNarrowRight, IconBadgeHd, IconDownload, I
 import React, { useEffect, useState } from 'react';
 import './ImageModal.css';
 import ColorThief from 'colorthief';
+import axios from 'axios';
+import { Buffer } from 'buffer';
 
 export default function ImageModal(props) {
     const [bgColor, setBgColor] = useState('white'); // Initial background color
@@ -12,6 +14,7 @@ export default function ImageModal(props) {
     const [hdPicture, setHdPicture] = useState(false);
     const [imageAngle, setimageAngle] = useState(0);
     const [imageLoading, setImageLoading] = useState(true);
+    const [imageData, setImageData] = useState(null);
 
     useEffect(() => {
         const img = document.querySelector('.modal-image');
@@ -19,6 +22,18 @@ export default function ImageModal(props) {
         setimageAngle(0);
         setImageLoading(true);
         
+        
+        // load image using axios
+        axios.get((hdPicture) ? window.baseApiUrl + 'view_image_hd.php?path=' + props.link : window.baseApiUrl + 'view_image.php?path=' + props.link, { responseType: 'arraybuffer' })
+        .then(response => {
+            const imageBase64 = Buffer.from(response.data, 'binary').toString('base64');
+            const imageDataUrl = `data:image/jpeg;base64,${imageBase64}`;
+            setImageData(imageDataUrl);
+        })
+        .catch(error => {
+            console.error('Error fetching image:', error);
+        });
+
         img.addEventListener('load', function() {
             setImageLoading(false);
             const tmp = colorThief.getColor(img);
@@ -27,8 +42,8 @@ export default function ImageModal(props) {
             
         });
         
-        
-    }, [props.link]);
+        // (hdPicture) ? window.baseApiUrl + 'view_image_hd.php?path=' + props.link : window.baseApiUrl + 'view_image.php?path=' + props.link
+    }, [props.link, hdPicture]);
 
     useEffect(() => {
         const lighterRGB = lightenColor(rgbColor);
@@ -110,7 +125,9 @@ export default function ImageModal(props) {
                     </div>
                     
                     <div className='image-modal-center'>
-                        <img style={{rotate: imageAngle + 'deg'}} className={'modal-image'} src={(hdPicture) ? window.baseApiUrl + 'view_image_hd.php?path=' + props.link : window.baseApiUrl + 'view_image.php?path=' + props.link} alt={'Image is loadin...'} crossOrigin="anonymous"/>
+                        {/* <img style={{rotate: imageAngle + 'deg'}} className={'modal-image'} src={(hdPicture) ? window.baseApiUrl + 'view_image_hd.php?path=' + props.link : window.baseApiUrl + 'view_image.php?path=' + props.link} alt={'Image is loadin...'} crossOrigin="anonymous"/> */}
+                        
+                        <img style={{rotate: imageAngle + 'deg'}} className={'modal-image'} src={imageData} alt={'Image is loadin...'} crossOrigin="anonymous"/>
                     </div>
 
                     <div className='image-modal-controls'>
