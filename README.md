@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Simple photo gallery using React.js 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Requirements:
+* PHP (im using **v8.2**, but im pretty sure you can do this on older versions aswell)
+* PHP library **Imagick**
 
-## Available Scripts
+### Configuration
+###### config.php (backend)
+```php
 
-In the project directory, you can run:
+header("Access-Control-Allow-Credentials: true"); 
+header("Access-Control-Allow-Origin: http://localhost:3000"); // allow requests from localhost:3000
 
-### `npm start`
+// add system path to your pictures, and where you want thumbnails to be generated
+define('THUMB_PATH', './thumb/'); // path to thumbnail folder (needs to be publicly available)
+define('IMAGE_PATH', '/home/example_person/Pictures/'); // full path to pictures on your system
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+// if you want you can turn off simple login, and implement your own security check
+// security script gets executed before any api script
+define('SECURITY_SCRIPT', './sec.php');
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+// ask login?
+define('SIMPLE_LOGIN', false);
 
-### `npm test`
+// login credentials
+define('USERNAME', ''); 
+define('PASSWORD', ''); // sha256 password
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+/*
+    Get your sha256 password hash here:
+    https://emn178.github.io/online-tools/sha256.html
+*/
 
-### `npm run build`
+// thumbnail width and height
+define('T_HEIGHT',  100);
+define('T_WIDTH',   100);
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+###### index.js (frontend)
+```js
+function domain_detect(){
+    const currentDomain = window.location.hostname;
+    const protocol = window.location.protocol;
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    window.baseApiUrl   = protocol + '//'+ currentDomain +'/home/photos/'; // public url to your api files
+    window.baseThumbUrl = protocol + '//'+ currentDomain +'/home/photos/thumb/'; // public url to your generated thumbnails
+}
 
-### `npm run eject`
+window.version = 'v1.0';
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+// settings for pagination
+window.imagesPerPage = 54;
+window.imagesPerPagePhone = 24;
+window.paginationSiblings = 2; // pages in the middle
+window.paginationBoundaries = 1; // pages from both sides
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+// all picture settings
+window.imagesPerRowPhone = 4; // how many images to show per row on phone
+window.imageSize = 100; // image size when viewed normaly
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Step by step
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* Run `npm install` to install all packages
+* Configurate front-end settings in **index.js** files
+    * Set your public **thumbnail** url
+    * Set your public **api** url
+    * if you want, then edit other settings aswell
+* Do everything that is said in this [tutorial](https://github.com/Skrazzo/React.js-to-apache) to prepeare and build react app
+* Upload php api files to previously set destination
+* Configurate back-end in **/config/config.php**
 
-## Learn More
+## Customize security
+You can implement your own security checks in defined security file. Security file is included before every api call.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### For example
+if you have your own login system, with token or session checks, you can modify **sec.php** to accept your token, or connect to your own database and check credentials.

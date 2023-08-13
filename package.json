@@ -1,7 +1,7 @@
 {
   "name": "photo-gallery",
   "version": "0.1.0",
-  "homepage": "https://skrazzo.xyz/test/",
+  "homepage": "https://example.com/react-project-directory/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",

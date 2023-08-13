@@ -12,10 +12,8 @@ function domain_detect(){
     const currentDomain = window.location.hostname;
     const protocol = window.location.protocol;
 
-    
-
-    window.baseApiUrl   = protocol + '//'+ currentDomain +'/home/photos/'; 
-    window.baseThumbUrl = protocol + '//'+ currentDomain +'/home/photos/thumb/';
+    window.baseApiUrl   = protocol + '//'+ currentDomain +'/home/photos/'; // public url to your api files
+    window.baseThumbUrl = protocol + '//'+ currentDomain +'/home/photos/thumb/'; // public url to your generated thumbnails
 }
 
 window.version = 'v1.0';
