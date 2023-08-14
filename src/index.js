@@ -14,6 +14,10 @@ function domain_detect(){
 
     window.baseApiUrl   = protocol + '//'+ currentDomain +'/home/photos/'; // public url to your api files
     window.baseThumbUrl = protocol + '//'+ currentDomain +'/home/photos/thumb/'; // public url to your generated thumbnails
+    window.filemanagerUrl = '../home/';
+
+    // console.warn('baseApiUrl' + window.baseApiUrl);
+    // console.warn('baseThumbUrl' + window.baseThumbUrl);
 }
 
 window.version = 'v1.0';
@@ -30,7 +34,7 @@ window.imageSize = 100; // image size when viewed normaly
 
 root.render(
     <MantineProvider
-        theme={{ colorScheme: 'light', primaryColor: 'green' }}
+        theme={{ colorScheme: 'light', primaryColor: 'blue' }}
     >
         <Notifications />
         <App />

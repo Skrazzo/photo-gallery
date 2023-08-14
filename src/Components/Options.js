@@ -66,6 +66,12 @@ export default function Options() {
                 <Button loading={generateLoading} onClick={generateThumbnails} leftIcon={<IconRefresh size={20}/>} size={'xs'}>Regenerate thumbnails</Button>
             </Paper>
 
+            <Paper withBorder shadow={'sm'} p={5}>
+                <Text c={'dimmed'} fs={'italic'} mb={10}>Open file-manager</Text>
+                <Button onClick={() => {window.open(window.filemanagerUrl, '_blank');}} leftIcon={<IconRefresh size={20}/>} size={'xs'}>Open your file-manager</Button>
+            </Paper>
+
+
             <Paper withBorder shadow={'sm'} p={5} mt={10}>
                 <Text c={'dimmed'} fs={'italic'}>Check login</Text>
                 <Paper withBorder my={10} p={5}>

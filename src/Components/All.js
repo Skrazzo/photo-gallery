@@ -37,7 +37,7 @@ export default function All() {
                                 color: 'green',
                             });
                             
-                            window.location.reload();   
+                            
                         }else{
                             console.error('PHP error:', res);
                         }
