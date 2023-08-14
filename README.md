@@ -5,6 +5,9 @@
 * PHP library **Imagick**
 
 ### Configuration
+###### filemanager redirect url
+in .env file `REACT_APP_FILE_MANAGER_URL=/home/example/`
+
 ###### config.php (backend)
 ```php
 
