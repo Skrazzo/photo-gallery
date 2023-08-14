@@ -1,7 +1,7 @@
 <?php
 
 include './config/config.php';
-include SECURITY_SCRIPT;
+//include SECURITY_SCRIPT;
 
 // Function to recursively generate thumbnails and delete obsolete ones
 function generateAndDeleteThumbnails($sourcePath, $thumbPath, $thumbnailWidth, $thumbnailHeight)
