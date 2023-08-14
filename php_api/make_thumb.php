@@ -1,7 +1,16 @@
 <?php
-
 include './config/config.php';
 //include SECURITY_SCRIPT;
+
+// not letting script to be launched from web
+if (php_sapi_name() !== 'cli') {
+    // This script should only be executed from the command line
+    header("HTTP/1.0 403 Forbidden");
+    echo "Access denied!";
+    exit;
+}
+
+
 
 // Function to recursively generate thumbnails and delete obsolete ones
 function generateAndDeleteThumbnails($sourcePath, $thumbPath, $thumbnailWidth, $thumbnailHeight)
