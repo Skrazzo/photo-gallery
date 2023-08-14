@@ -7,6 +7,9 @@ import { notifications } from '@mantine/notifications';
 export default function Options() {
     const [generateLoading, setGenerateLoading] = useState(false);
     const [loginCheckResult, setLoginCheckResult] = useState({logged_in: false, login_req: false});
+    const filemanagerURL = process.env.REACT_APP_FILE_MANAGER_URL;
+
+    
 
     axios.defaults.withCredentials = true;
     axios.defaults.baseURL = window.baseApiUrl;
@@ -68,7 +71,7 @@ export default function Options() {
 
             <Paper withBorder shadow={'sm'} p={5}>
                 <Text c={'dimmed'} fs={'italic'} mb={10}>Open file-manager</Text>
-                <Button onClick={() => {window.open(window.filemanagerUrl, '_blank');}} leftIcon={<IconRefresh size={20}/>} size={'xs'}>Open your file-manager</Button>
+                <Button onClick={() => {window.open(filemanagerURL, '_blank');}} leftIcon={<IconRefresh size={20}/>} size={'xs'}>Open your file-manager</Button>
             </Paper>
 
 
