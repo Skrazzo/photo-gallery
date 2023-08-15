@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: http://localhost:3000"); // allow requests 
 
 // add system path to your pictures, and where you want thumbnails to be generated
 define('THUMB_PATH', './thumb/');
-define('IMAGE_PATH', '/');
+define('IMAGE_PATH', '/example/');
 
 // if you want you can turn off simple login, and implement your own security check
 // security script gets executed before any api script

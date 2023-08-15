@@ -42,8 +42,8 @@ export default function App() {
         );
     }else{
         return (
-            <Tabs variant="outline" defaultValue="gallery">
-                <Tabs.List>
+            <Tabs variant="outline" defaultValue="all">
+                <Tabs.List >
                     <Tabs.Tab value="all" icon={<IconPhoto size="0.8rem" />}>All Photos</Tabs.Tab>
                     <Tabs.Tab value="folders" icon={<IconFolders size="0.8rem" />}>Folders</Tabs.Tab>
                     <Tabs.Tab value="options" icon={<IconAdjustmentsAlt size="0.8rem" />}>Options</Tabs.Tab>
