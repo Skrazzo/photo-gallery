@@ -4,18 +4,18 @@ header("Access-Control-Allow-Origin: http://localhost:3000"); // allow requests 
 
 // add system path to your pictures, and where you want thumbnails to be generated
 define('THUMB_PATH', './thumb/');
-define('IMAGE_PATH', '/home/a/www/home/files/myfiles/skrazzo/Pictures/');
+define('IMAGE_PATH', '/home/example/');
 
 // if you want you can turn off simple login, and implement your own security check
 // security script gets executed before any api script
 define('SECURITY_SCRIPT', './sec.php');
 
 // ask login?
-define('SIMPLE_LOGIN', true);
+define('SIMPLE_LOGIN', false);
 
 // login credentials
-define('USERNAME', 'skrazzo'); 
-define('PASSWORD', '6a439b44876dcc99f19604306ecf3cc974bcc8340d0127fae8c9ab9b395fa782'); // sha256 password
+define('USERNAME', ''); 
+define('PASSWORD', ''); // sha256 password
 
 /*
     Get your sha256 password hash here:
